@@ -153,14 +153,10 @@ def set_board(ctx):
 
     board = ctx.options.board.lower()
 
+    ctx.env.BOARD = "DOT_MATRIX"
     # Save the board type in the environment variables so the --board
     # option doesn't need to be specified every time.
-    if board == "ascii":
-        ctx.env.BOARD = "ASCII"
-    elif board == "dot_matrix":
-        ctx.env.BOARD = "DOT_MATRIX"
-    else:
-        ctx.fatal(f"Invalid board type '{board}' specified.")
+    
 
 
 # The "build" command is the default one run by waf if you don't specify anthing.
@@ -380,7 +376,7 @@ def get_jlink_srch_path(exe_name: str):
         install_roots = [
             "C:\\Program Files\\SEGGER\\",
             "C:\\Program Files (x86)\\SEGGER\\",
-            "D:\\SEGGER\\JLink_V798i",
+            "D:\\SEGGER\\JLink",
         ]
 
     elif Utils.unversioned_sys_platform() == "darwin":
@@ -444,7 +440,7 @@ def get_gcc_srch_path_win32():
     import winreg
 
     REGISTRY_PATHS = [(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\ARM")]
-    INSTALL_PATHS = ["D:\\Arm_GNU_Toolchain\\13_3_rel1\\arm-none-eabi"]
+    INSTALL_PATHS = ["C:\\Program Files (x86)\\Arm GNU Toolchain arm-none-eabi\\13.3 rel1\\arm-none-eabi"]
 
     gcc_vers = defaultdict(set)  # Map from version numbers to discovered paths.
 
